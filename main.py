@@ -17,7 +17,7 @@ conn = _connect()
 
 df_boston = pd.read_sql(
     """
-    SELECT e.firstName, e.lastName
+    SELECT e.firstName, e.lastName, e.jobTitle
     FROM employees AS e
     JOIN offices AS o
         ON e.officeCode = o.officeCode
@@ -157,9 +157,7 @@ df_under_20 = pd.read_sql(
         GROUP BY od_inner.productCode
         HAVING COUNT(DISTINCT o_inner.customerNumber) < 20
     ) AS pu20
-        ON od.productCode = pu20.productCode
-    ORDER BY e.lastName ASC;
-    """,
+        ON od.productCode = pu20.productCode;""",
     conn,
 )
 
